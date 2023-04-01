@@ -1,4 +1,26 @@
-# AppSignal apm for Ruby
+# HEALTHIE FORK
+
+```bash
+# remotes should look like this
+git remote -v
+# healthie  https://github.com/healthie/appsignal-ruby.git (fetch)
+# healthie  https://github.com/healthie/appsignal-ruby.git (push)
+# origin  https://github.com/appsignal/appsignal-ruby.git (fetch)
+# origin  https://github.com/appsignal/appsignal-ruby.git (push)
+
+git fetch healthie
+git fetch origin
+git tag | tail -n1
+#v3.4.6
+
+git checkout do-not-record-error-message
+git reset --hard healthie/do-not-record-error-message
+
+git rebase --no-verify --onto=v3.4.6 HEAD^
+git push --force healthie
+```
+
+# AppSignal for Ruby
 
 AppSignal solves all your Ruby monitoring needs in a single tool. You and your
 team can focus on writing code and we'll provide the alerts if your app has any
@@ -9,7 +31,7 @@ issues.
 - [Ruby code documentation][ruby-doc]
 - [Support][contact]
 
-[![Build status](https://appsignal.semaphoreci.com/badges/appsignal-ruby/branches/main.svg)](https://appsignal.semaphoreci.com/projects/appsignal-ruby)
+[![Build status](https://appsignal.semaphoreci.com/badges/appsignal-ruby/branches/master.svg)](https://appsignal.semaphoreci.com/projects/appsignal-ruby)
 [![Gem Version](https://badge.fury.io/rb/appsignal.svg)](http://badge.fury.io/rb/appsignal)
 [![Code Climate](https://codeclimate.com/github/appsignal/appsignal.png)](https://codeclimate.com/github/appsignal/appsignal)
 
@@ -157,19 +179,6 @@ as most Linux distributions, FreeBSD, macOS, excluding Microsoft Windows.
 For more detailed information please visit our [Supported
 systems][supported-systems] page.
 
-## Releases
-
-Following the process below to release a new version of the Ruby gem.
-
-1. Make sure [mono](https://github.com/appsignal/mono/) is installed by
-   following the installation instructions.
-1. Run: `mono publish`
-   - Mono will automatically bump the version number based on the
-     `.changesets/`.
-   - Mono will automatically update the `CHANGELOG.md` file based on the
-     `.changesets/`.
-1. Confirm with your two-factor authentication token for Rubygems.org, _twice_.
-
 ## Development
 
 ### Installation
@@ -180,8 +189,6 @@ install all possible dependencies.
 ```bash
 # Install Bundler
 gem install bundler
-# Bootstrap the project
-mono bootstrap
 # Install the AppSignal extension and _all_ gems we support.
 bundle exec rake install
 # Only install the AppSignal extension.
@@ -198,7 +205,7 @@ installing the AppSignal C-extension.
 # Gemfile
 gem "appsignal",
   :git => "https://github.com/appsignal/appsignal-ruby.git",
-  :branch => "main"
+  :branch => "master"
 ```
 
 When you need to use a git source of the gem in your JRuby install, you'll need
@@ -232,22 +239,14 @@ configurations you need to run the spec suite with a specific Gemfile.
 BUNDLE_GEMFILE=gemfiles/capistrano2.gemfile bundle exec rspec
 BUNDLE_GEMFILE=gemfiles/capistrano3.gemfile bundle exec rspec
 BUNDLE_GEMFILE=gemfiles/grape.gemfile bundle exec rspec
-BUNDLE_GEMFILE=gemfiles/hanami.gemfile bundle exec rspec
-BUNDLE_GEMFILE=gemfiles/http5.gemfile bundle exec rspec
 BUNDLE_GEMFILE=gemfiles/no_dependencies.gemfile bundle exec rspec
 BUNDLE_GEMFILE=gemfiles/padrino.gemfile bundle exec rspec
-BUNDLE_GEMFILE=gemfiles/que.gemfile bundle exec rspec
-BUNDLE_GEMFILE=gemfiles/que_beta.gemfile bundle exec rspec
 BUNDLE_GEMFILE=gemfiles/rails-3.2.gemfile bundle exec rspec
 BUNDLE_GEMFILE=gemfiles/rails-4.0.gemfile bundle exec rspec
 BUNDLE_GEMFILE=gemfiles/rails-4.1.gemfile bundle exec rspec
 BUNDLE_GEMFILE=gemfiles/rails-4.2.gemfile bundle exec rspec
 BUNDLE_GEMFILE=gemfiles/rails-5.0.gemfile bundle exec rspec
-BUNDLE_GEMFILE=gemfiles/rails-5.1.gemfile bundle exec rspec
-BUNDLE_GEMFILE=gemfiles/rails-5.2.gemfile bundle exec rspec
-BUNDLE_GEMFILE=gemfiles/rails-6.0.gemfile bundle exec rspec
-BUNDLE_GEMFILE=gemfiles/resque-1.gemfile bundle exec rspec
-BUNDLE_GEMFILE=gemfiles/resque-2.gemfile bundle exec rspec
+BUNDLE_GEMFILE=gemfiles/resque.gemfile bundle exec rspec
 BUNDLE_GEMFILE=gemfiles/sequel-435.gemfile bundle exec rspec
 BUNDLE_GEMFILE=gemfiles/sequel.gemfile bundle exec rspec
 BUNDLE_GEMFILE=gemfiles/sinatra.gemfile bundle exec rspec
@@ -265,12 +264,12 @@ a number of different Ruby versions.
 
 This gem uses [Semantic Versioning][semver].
 
-The `main` branch corresponds to the current stable release of the gem.
+The `master` branch corresponds to the current stable release of the gem.
 
 The `develop` branch is used for development of features that will end up in
 the next minor release.
 
-Open a Pull Request on the `main` branch if you're fixing a bug. For new new
+Open a Pull Request on the `master` branch if you're fixing a bug. For new new
 features, open a Pull Request on the `develop` branch.
 
 Every stable and unstable release is tagged in git with a version tag.
@@ -293,22 +292,22 @@ the most out of using AppSignal.
 
 Also see our [SUPPORT.md file](SUPPORT.md).
 
-[appsignal]: https://www.appsignal.com/ruby
+[appsignal]: https://appsignal.com
 [appsignal-sign-up]: https://appsignal.com/users/sign_up
 [contact]: mailto:support@appsignal.com
 [coc]: https://docs.appsignal.com/appsignal/code-of-conduct.html
-[waffles-page]: https://www.appsignal.com/waffles
-[docs]: https://docs.appsignal.com
+[waffles-page]: https://appsignal.com/waffles
+[docs]: http://docs.appsignal.com
 [ruby-doc]: https://www.rubydoc.info/gems/appsignal
-[contributing-guide]: https://docs.appsignal.com/appsignal/contributing.html
-[supported-systems]: https://docs.appsignal.com/support/operating-systems.html
-[integrations]: https://docs.appsignal.com/ruby/integrations/index.html
-[custom-instrumentation]: https://docs.appsignal.com/ruby/instrumentation/
-[front-end-monitoring]: https://docs.appsignal.com/front-end/error-handling.html
-[exception-handling]: https://docs.appsignal.com/ruby/instrumentation/exception-handling.html
-[tagging]: https://docs.appsignal.com/ruby/instrumentation/tagging.html
-[host-metrics]: https://docs.appsignal.com/metrics/host.html
-[custom-metrics]: https://docs.appsignal.com/metrics/custom.html
+[contributing-guide]: http://docs.appsignal.com/appsignal/contributing.html
+[supported-systems]: http://docs.appsignal.com/support/operating-systems.html
+[integrations]: http://docs.appsignal.com/ruby/integrations/index.html
+[custom-instrumentation]: http://docs.appsignal.com/ruby/instrumentation/
+[front-end-monitoring]: http://docs.appsignal.com/front-end/error-handling.html
+[exception-handling]: http://docs.appsignal.com/ruby/instrumentation/exception-handling.html
+[tagging]: http://docs.appsignal.com/ruby/instrumentation/tagging.html
+[host-metrics]: http://docs.appsignal.com/metrics/host.html
+[custom-metrics]: http://docs.appsignal.com/metrics/custom.html
 
 [semver]: http://semver.org/
 [rvm]: http://rvm.io/
