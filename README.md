@@ -1,3 +1,25 @@
+# HEALTHIE FORK
+
+```bash
+# remotes should look like this
+git remote -v
+# healthie  https://github.com/healthie/appsignal-ruby.git (fetch)
+# healthie  https://github.com/healthie/appsignal-ruby.git (push)
+# origin  https://github.com/appsignal/appsignal-ruby.git (fetch)
+# origin  https://github.com/appsignal/appsignal-ruby.git (push)
+
+git fetch healthie
+git fetch origin
+git tag | tail -n1
+#v3.4.6
+
+git checkout do-not-record-error-message
+git reset --hard healthie/do-not-record-error-message
+
+git rebase --no-verify --onto=v3.4.6 HEAD^
+git push --force healthie
+```
+
 # AppSignal apm for Ruby
 
 AppSignal solves all your Ruby monitoring needs in a single tool. You and your

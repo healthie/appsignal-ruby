@@ -364,7 +364,7 @@ module Appsignal
       backtrace = cleaned_backtrace(error.backtrace)
       @ext.set_error(
         error.class.name,
-        cleaned_error_message(error),
+        '',
         backtrace ? Appsignal::Utils::Data.generate(backtrace) : Appsignal::Extension.data_array_new
       )
     end
